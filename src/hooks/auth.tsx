@@ -5,7 +5,6 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
-import asyncStorage from '@react-native-community/async-storage';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../services/api';
 
@@ -57,7 +56,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
-    await asyncStorage.multiSet([
+    await AsyncStorage.multiSet([
       ['@Gobarber:token', token],
       ['@Gobarber:user', JSON.stringify(user)],
     ]);
@@ -66,7 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(async () => {
-    asyncStorage.multiRemove(['@Gobarber:token', '@Gobarber:user']);
+    AsyncStorage.multiRemove(['@Gobarber:token', '@Gobarber:user']);
 
     setData({} as AuthState);
   }, []);
